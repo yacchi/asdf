@@ -1,11 +1,12 @@
 # -*- sh -*-
+set -o nounset
 
 # shellcheck source=lib/commands/reshim.bash
 source "$(dirname "$ASDF_CMD_FILE")/reshim.bash"
 
 reshim_command() {
-  local plugin_name=$1
-  local full_version=$2
+  local plugin_name=${1:-}
+  local full_version=${2:-}
 
   if [ -z "$plugin_name" ]; then
     local plugins_path
@@ -55,7 +56,7 @@ ensure_shims_dir() {
 }
 
 write_shim_script() {
-  local plugin_name=$1
+  local plugin_name=${1:-}
   local version=$2
   local executable_path=$3
 
@@ -86,7 +87,7 @@ EOF
 }
 
 generate_shim_for_executable() {
-  local plugin_name=$1
+  local plugin_name=${1:-}
   local executable=$2
 
   check_if_plugin_exists "$plugin_name"
@@ -103,7 +104,7 @@ generate_shim_for_executable() {
 }
 
 generate_shims_for_version() {
-  local plugin_name=$1
+  local plugin_name=${1:-}
   local full_version=$2
   for executable_path in $(plugin_executables "$plugin_name" "$full_version"); do
     write_shim_script "$plugin_name" "$full_version" "$executable_path"
@@ -111,7 +112,7 @@ generate_shims_for_version() {
 }
 
 remove_obsolete_shims() {
-  local plugin_name=$1
+  local plugin_name=${1:-}
   local full_version=$2
 
   local shims

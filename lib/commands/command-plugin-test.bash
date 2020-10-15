@@ -13,7 +13,7 @@ plugin_test_command() {
   set -- ${*:3}
 
   while [[ $# -gt 0 ]]; do
-    case $1 in
+    case ${1:-} in
     --asdf-plugin-gitref)
       plugin_gitref="${2:-}"
       shift # past flag
