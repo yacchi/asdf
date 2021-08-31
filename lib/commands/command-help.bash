@@ -19,7 +19,7 @@ asdf_extension_cmds() {
   # use find instead of ls -1
   # shellcheck disable=SC2012
   ext_cmds="$(ls -1 "$plugins_path"/*/lib/commands/command*.bash 2>/dev/null |
-    sed "s#^$plugins_path/##;s#lib/commands/command##;s/.bash//;s/^-//;s/-/ /g")"
+    sed "s#^$plugins_path/##;s#lib/commands/command##;s/.bash//;s/^-//;s#/-#/#g;h;s#^.*/##g;s/-/ /g;x;s#/.*\$#/#g;G;s/\n/ /g")"
   if test -n "$ext_cmds"; then
     cut -d'/' -f 1 <<<"$ext_cmds" | uniq | while read -r plugin; do
       printf "\\nPLUGIN %s\\n" "$plugin"
