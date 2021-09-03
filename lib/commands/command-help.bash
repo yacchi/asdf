@@ -14,7 +14,7 @@ EOF
 }
 
 asdf_extension_cmds() {
-  local plugins_path ext_cmd_path ext_cmds plugin
+  local plugins_path ext_cmd_path ext_cmds plugin plugin_help
   plugins_path="$(get_plugin_path)"
   # use find instead of ls -1
   # shellcheck disable=SC2012
@@ -27,7 +27,18 @@ asdf_extension_cmds() {
     if [[ -n $ext_cmds ]]; then
       printf "\\nPLUGIN %s\\n" "$plugin"
       for ext_cmd in $ext_cmds; do
-        sed "s/-/ /g;s/.bash//;s/command-*/  asdf $plugin/;" <<<"$ext_cmd"
+        plugin_help=$(
+          grep -oE '^#[[:blank:]]+asdf-help:[[:blank:]]+.*' "$ext_cmd_path/$ext_cmd" |
+            sed 's/^#[[:blank:]]*asdf-help:[[:blank:]]*//'
+        )
+        if [[ -z $plugin_help ]]; then
+          sed "s/-/ /g;s/.bash//;s/command-*/  asdf $plugin/" <<<"$ext_cmd"
+        else
+          local usage usage_len
+          usage=$(sed "s/-/ /g;s/.bash//;s/command-*/  asdf $plugin/" <<<"$ext_cmd")
+          usage_len=$((40 - ${#usage}))
+          printf "$usage%${usage_len}s${plugin_help}"
+        fi
       done | sort
     fi
   done
