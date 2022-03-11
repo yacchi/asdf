@@ -19,10 +19,10 @@ plugin_update_command() {
       wait
     fi
   else
-    local plugin_path
-    plugin_path="$(get_plugin_path "$plugin_name")"
+    local plugin_root
+    plugin_root="$(get_plugin_root "$plugin_name")"
     check_if_plugin_exists "$plugin_name"
-    update_plugin "$plugin_name" "$plugin_path" "$gitref"
+    update_plugin "$plugin_name" "$plugin_root" "$gitref"
   fi
 }
 

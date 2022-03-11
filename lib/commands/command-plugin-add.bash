@@ -26,21 +26,24 @@ plugin_add_command() {
     exit 1
   fi
 
-  local plugin_path
-  plugin_path=$(get_plugin_path "$plugin_name")
+  local plugin_root
+  plugin_root=$(get_plugin_root "$plugin_name")
 
   mkdir -p "$(asdf_data_dir)/plugins"
 
-  if [ -d "$plugin_path" ]; then
+  if [ -d "$plugin_root" ]; then
     display_error "Plugin named $plugin_name already added"
     exit 2
   else
     asdf_run_hook "pre_asdf_plugin_add" "$plugin_name"
     asdf_run_hook "pre_asdf_plugin_add_${plugin_name}"
 
-    if ! git clone -q "$source_url" "$plugin_path"; then
+    if ! git clone -q "$source_url" "$plugin_root"; then
       exit 1
     fi
+
+    local plugin_path
+    plugin_path=$(get_plugin_path "$plugin_name")
 
     if [ -f "${plugin_path}/bin/post-plugin-add" ]; then
       (
