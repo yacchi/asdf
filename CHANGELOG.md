@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.11.0](https://www.github.com/yacchi/asdf/compare/v0.10.1...v0.11.0) (2022-06-05)
+
+
+### Features
+
+* Support for changing the location of plugin scripts ([a20fac7](https://www.github.com/yacchi/asdf/commit/a20fac7d271e80caf1e8559ba4b15c39251f46dd))
+
+
+### Bug Fixes
+
+* always use ASDF_DEFAULT_TOOL_VERSIONS_FILENAME for filename when present ([#1238](https://www.github.com/yacchi/asdf/issues/1238)) ([711ad99](https://www.github.com/yacchi/asdf/commit/711ad991043a1980fa264098f29e78f2ecafd610)), closes [#1082](https://www.github.com/yacchi/asdf/issues/1082)
+* update event trigger for doc-version workflow ([#1232](https://www.github.com/yacchi/asdf/issues/1232)) ([0bc8c3a](https://www.github.com/yacchi/asdf/commit/0bc8c3ab6895b88c96bff86f5f79575ee80cc718))
+* updating references to legacy github.io site ([#1240](https://www.github.com/yacchi/asdf/issues/1240)) ([738306b](https://www.github.com/yacchi/asdf/commit/738306bc5d1c53a22c06e4d6d3ddb6d511dc5d50))
+
 ### [0.10.1](https://www.github.com/asdf-vm/asdf/compare/v0.10.0...v0.10.1) (2022-05-17)
 
 
